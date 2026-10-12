@@ -1,0 +1,106 @@
+</main>
+
+<footer style="
+  border-top: 1px solid #ddd !important;
+  width: 100% !important;
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
+  background-color: #303030 !important;
+  color: #e2e2e2 !important;
+  margin: 0 !important;
+  position: relative !important;
+  z-index: 1 !important;
+">
+  <div class="container">
+    <div class="row">
+      {% if informations or blog %}
+        <div class="col-sm-3">
+          <h5>{{ text_information }}</h5>
+          <ul class="list-unstyled">
+            {% if blog %}
+              <li><a href="{{ blog }}">{{ text_blog }}</a></li>
+            {% endif %}
+            {% for information in informations %}
+              <li><a href="{{ information.href }}">{{ information.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+      <div class="col-sm-3">
+        <h5>{{ text_service }}</h5>
+        <ul class="list-unstyled">
+          <li><a href="{{ contact }}">{{ text_contact }}</a></li>
+          <li><a href="{{ return }}">{{ text_return }}</a></li>
+          {% if gdpr %}
+            <li><a href="{{ gdpr }}">{{ text_gdpr }}</a></li>
+          {% endif %}
+          <li><a href="{{ sitemap }}">{{ text_sitemap }}</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-3">
+        <h5>{{ text_extra }}</h5>
+        <ul class="list-unstyled">
+          <li><a href="{{ manufacturer }}">{{ text_manufacturer }}</a></li>
+          {% if affiliate %}
+            <li><a href="{{ affiliate }}">{{ text_affiliate }}</a></li>
+          {% endif %}
+          <li><a href="{{ special }}">{{ text_special }}</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-3">
+        <h5>{{ text_account }}</h5>
+        <ul class="list-unstyled">
+          <li><a href="{{ account }}">{{ text_account }}</a></li>
+          <li><a href="{{ order }}">{{ text_order }}</a></li>
+          <li><a href="{{ wishlist }}">{{ text_wishlist }}</a></li>
+          <li><a href="{{ newsletter }}">{{ text_newsletter }}</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr>
+    <p>{{ powered }}</p>
+  </div>
+</footer>
+</div>
+
+{{ cookie }}
+<script src="{{ bootstrap }}" type="text/javascript"></script>
+{% for script in scripts %}
+  <script src="{{ script.href }}" type="text/javascript"></script>
+{% endfor %}
+
+<style>
+  /* Computador - 180px */
+  @media (min-width: 992px) {
+    .content-top, #content, #column-left, #column-right {
+      transform: translateY(190px) !important;
+      margin-bottom: 190px !important;
+      position: relative !important;
+      z-index: 2 !important;
+    }
+  }
+  
+  /* Tablet - 100px */
+  @media (min-width: 768px) and (max-width: 991px) {
+    .content-top, #content, #column-left, #column-right {
+      transform: translateY(140px) !important;
+      margin-bottom: -120px !important;
+      position: relative !important;
+      z-index: 2 !important;
+    }
+  }
+  
+  /* Telemóvel - SEM margin-bottom (apenas transform) */
+@media (max-width: 767px) {
+  .content-top, #content, #column-left, #column-right {
+    transform: translateY(260px) !important;
+    margin-bottom: -430px !important;
+    position: relative !important;
+    z-index: 2 !important;
+  }
+}
+
+</style>
+
+</body>
+</html>

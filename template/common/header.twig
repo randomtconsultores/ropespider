@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html dir="{{ direction }}" lang="{{ lang }}">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{{ title }}</title>
+  <base href="{{ base }}"/>
+  {% if description %}
+    <meta name="description" content="{{ description }}"/>
+  {% endif %}
+  {% if keywords %}
+    <meta name="keywords" content="{{ keywords }}"/>
+  {% endif %}
+  <script src="{{ jquery }}" type="text/javascript"></script>
+  <link href="{{ bootstrap }}" type="text/css" rel="stylesheet" media="screen"/>
+  <link href="{{ icons }}" rel="stylesheet" type="text/css"/>
+  <link href="{{ stylesheet }}" type="text/css" rel="stylesheet"/>
+  <script src="catalog/view/javascript/common.js" type="text/javascript"></script>
+  {% if icon %}
+    <link rel="icon" href="{{ icon }}" type="image/png">
+  {% endif %}
+  {% for style in styles %}
+    <link href="{{ style.href }}" type="text/css" rel="{{ style.rel }}" media="{{ style.media }}"/>
+  {% endfor %}
+  {% for script in scripts %}
+    <script src="{{ script.href }}" type="text/javascript"></script>
+  {% endfor %}
+  {% for link in links %}
+    <link href="{{ link.href }}" rel="{{ link.rel }}"/>
+  {% endfor %}
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PHCH3XFG');</script>
+  <!-- End Google Tag Manager -->
+  {% for analytic in analytics %}
+    {{ analytic }}
+  {% endfor %}
+  
+  <!-- MEGAMENU + FIX CSS -->
+  <style>
+    /* ===== LAYOUT BASE ===== */
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+
+    #container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ===== HEADER WRAPPER ===== */
+    .header-wrapper {
+      background: #fff;
+      position: relative;
+      z-index: 20;
+      margin: 0;
+      padding: 0;
+      flex-shrink: 0;
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    main {
+      flex: 1;
+      position: relative;
+      z-index: 10;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: visible;
+    }
+
+    /* ===== MEGAMENU ===== */
+    .navbar-megamenu {
+      background: #fff;
+      border-bottom: 1px solid #f0f0f0;
+      margin: 0;
+      padding: 0;
+      flex-shrink: 0;
+    }
+
+    .megamenu-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .megamenu-item {
+      position: relative;
+      flex: 0 1 auto;
+    }
+
+    .megamenu-item > a {
+      display: block;
+      padding: 16px 18px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      color: #333;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border-bottom: 3px solid transparent;
+      font-size: 15px;
+    }
+
+    .megamenu-item > a:hover {
+      color: #667eea;
+      border-bottom-color: #667eea;
+      background: rgba(102, 126, 234, 0.05);
+    }
+
+    .megamenu-submenu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #fff;
+      list-style: none;
+      padding: 12px 0;
+      margin: 0;
+      min-width: 220px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      z-index: 1000;
+    }
+
+    .megamenu-item:hover .megamenu-submenu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .megamenu-submenu li a {
+      display: block;
+      padding: 12px 20px;
+      color: #666;
+      text-decoration: none;
+      font-size: 14px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .megamenu-submenu li a:hover {
+      color: #667eea;
+      background: rgba(102, 126, 234, 0.08);
+      padding-left: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .navbar-megamenu {
+    display: none !important;    /* ← Esconde o megamenu no mobile */
+    }
+      /* Mostrar burger quando active */
+  .navbar-megamenu.active {
+    display: block !important;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    z-index: 1000;
+  }
+    
+      .megamenu-list {
+        flex-direction: column;
+      }
+      
+      .megamenu-item {
+        width: 100%;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      
+      .megamenu-item > a {
+        padding: 14px 20px;
+      }
+      
+      .megamenu-submenu {
+        position: static;
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+        visibility: hidden;
+        background: #f9f9f9;
+        box-shadow: none;
+        border-radius: 0;
+        transform: none;
+      }
+      
+      .megamenu-item.active .megamenu-submenu {
+        opacity: 1;
+        visibility: visible;
+        max-height: 400px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PHCH3XFG"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div id="container">
+    <div id="alert"></div>
+    
+    <!-- HEADER WRAPPER SEPARADO -->
+    <div class="header-wrapper">
+      <nav id="top">
+        <div class="container">
+          <div class="row">
+            <div class="col-4">
+              <ul class="list-inline">
+                <li class="list-inline-item me-3">{{ currency }}</li>
+                <li class="list-inline-item">{{ language }}</li>
+              </ul>
+            </div>
+            <div class="col text-end">
+              <ul class="list-inline">
+                <li class="list-inline-item"><a href="{{ contact }}"><i class="fa-solid fa-phone"></i> <span class="d-none d-lg-inline">{{ telephone }}</span></a></li>
+                <li class="list-inline-item">
+                  <div class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-user"></i> <span class="d-none d-lg-inline">{{ text_account }}</span> <i class="fa-solid fa-caret-down"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      {% if not logged %}
+                        <li><a href="{{ register }}" class="dropdown-item">{{ text_register }}</a></li>
+                        <li><a href="{{ login }}" class="dropdown-item">{{ text_login }}</a></li>
+                      {% else %}
+                        <li><a href="{{ account }}" class="dropdown-item">{{ text_account }}</a></li>
+                        <li><a href="{{ order }}" class="dropdown-item">{{ text_order }}</a></li>
+                        <li><a href="{{ transaction }}" class="dropdown-item">{{ text_transaction }}</a></li>
+                        <li><a href="{{ download }}" class="dropdown-item">{{ text_download }}</a></li>
+                        <li><a href="{{ logout }}" class="dropdown-item">{{ text_logout }}</a></li>
+                      {% endif %}
+                    </ul>
+                  </div>
+                </li>
+                <li class="list-inline-item"><a href="{{ wishlist }}" id="wishlist-total" title="{{ text_wishlist }}"><i class="fa-solid fa-heart"></i> <span class="d-none d-lg-inline">{{ text_wishlist }}</span></a></li>
+                <li class="list-inline-item"><a href="{{ shopping_cart }}" title="{{ text_shopping_cart }}"><i class="fa-solid fa-cart-shopping"></i> <span class="d-none d-lg-inline">{{ text_shopping_cart }}</span></a></li>
+                <li class="list-inline-item"><a href="{{ checkout }}" title="{{ text_checkout }}"><i class="fa-solid fa-share"></i> <span class="d-none d-lg-inline">{{ text_checkout }}</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+      
+      <header>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3 col-lg-4">
+              <div id="logo">
+                {% if logo %}
+                  <a href="{{ home }}"><img src="{{ logo }}" title="{{ name }}" alt="{{ name }}" class="img-fluid"/></a>
+                {% else %}
+                  <h1><a href="{{ home }}">{{ name }}</a></h1>
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-md-5">{{ search }}</div>
+            <div id="cart" class="col-md-4 col-lg-3 mb-2">{{ cart }}</div>
+          </div>
+        </div>
+      </header>
+      
+      <!-- MEGAMENU -->
+      <nav class="navbar-megamenu">
+        <div class="container">
+          <ul class="megamenu-list">
+            <li class="megamenu-item">
+              <a href="#" class="megamenu-toggle">Cabos de aço</a>
+              <ul class="megamenu-submenu">
+                <li><a href="index.php?route=product/category&path=61">Galvanizado</a></li>
+                <li><a href="index.php?route=product/category&path=60">Inox V4A</a></li>
+                <li><a href="index.php?route=product/category&path=59">Revestidos PVC</a></li>
+                <li><a href="index.php?route=product/category&path=64">Conjunto Cabo</a></li>
+                <li><a href="index.php?route=product/category&path=63">Cabos de Guincho</a></li>
+                <li><a href="index.php?route=product/category&path=81">Cabos com Gancho</a></li>
+                <li><a href="index.php?route=product/category&path=82">Cabo  com Ilhós</a></li>
+                <li><a href="index.php?route=product/category&path=83">Cabos com Laço</a></li>
+              </ul>
+            </li>
+
+            <li class="megamenu-item">
+              <a href="#" class="megamenu-toggle">Cordas</a>
+              <ul class="megamenu-submenu">
+                <li><a href="index.php?route=product/category&path=75">Polipropileno</a></li>
+                <li><a href="index.php?route=product/category&path=76">Juta</a></li>
+                <li><a href="index.php?route=product/category&path=77">Elásticas</a></li>
+              </ul>
+            </li>
+
+            <li class="megamenu-item">
+              <a href="#" class="megamenu-toggle">Acessórios Construção</a>
+              <ul class="megamenu-submenu">
+                <li><a href="index.php?route=product/category&path=66">Ganchos</a></li>
+                <li><a href="index.php?route=product/category&path=67">Argolas</a></li>
+                <li><a href="index.php?route=product/category&path=68">Terminais</a></li>
+              </ul>
+            </li>
+
+            <li class="megamenu-item">
+              <a href="#" class="megamenu-toggle">Correntes</a>
+              <ul class="megamenu-submenu">
+                <li><a href="index.php?route=product/category&path=78">Correntes</a></li>
+              </ul>
+            </li>
+
+            <li class="megamenu-item">
+              <a href="index.php?route=product/category&path=73">Desporto</a>
+            </li>
+
+            <li class="megamenu-item">
+              <a href="index.php?route=product/category&path=74">Equipamento de Vela</a>
+            </li>
+
+            <li class="megamenu-item">
+              <a href="index.php?route=product/category&path=71">Casa</a>
+            </li>
+
+            <li class="megamenu-item">
+              <a href="index.php?route=product/category&path=72">Jardim</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    
+  </div>
+
+  <script>
+    document.querySelectorAll('.megamenu-item').forEach(item => {
+      const toggle = item.querySelector('.megamenu-toggle');
+      
+      if (toggle) {
+        toggle.addEventListener('click', function(e) {
+          if (window.innerWidth <= 768) {
+            e.preventDefault();
+            item.classList.toggle('active');
+          }
+        });
+      }
+    });
+
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.megamenu-item')) {
+        document.querySelectorAll('.megamenu-item.active').forEach(item => {
+          item.classList.remove('active');
+        });
+      }
+    });
+     // Burger menu toggle
+  document.addEventListener('DOMContentLoaded', function() {
+    // Cria o botão burger
+    const burger = document.createElement('button');
+    burger.innerHTML = '☰';
+    burger.className = 'burger-menu';
+    burger.style.cssText = 'display:none; background:none; border:none; font-size:24px; cursor:pointer;';
+    
+    // Coloca antes do megamenu
+    const megamenu = document.querySelector('.navbar-megamenu');
+    megamenu.parentElement.insertBefore(burger, megamenu);
+    
+    // Toggle ao clicar
+    burger.addEventListener('click', function() {
+      megamenu.classList.toggle('active');
+    });
+    
+    // Show burger apenas em mobile
+    function toggleBurger() {
+      if (window.innerWidth <= 768) {
+        burger.style.display = 'block';
+      } else {
+        burger.style.display = 'none';
+        megamenu.classList.remove('active');
+      }
+    }
+    
+    toggleBurger();
+    window.addEventListener('resize', toggleBurger);
+  });
+  </script>
+</body>
+</html>

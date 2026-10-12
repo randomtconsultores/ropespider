@@ -1,0 +1,384 @@
+{{ header }}
+
+<style>
+/* ===== HOME RopeSpider v4 - identidade "corda" ===== */
+body { display: flex; flex-direction: column; margin: 0; padding: 0; }
+main { flex: 1; position: relative; z-index: 1; }
+footer { position: relative; z-index: 0; clear: both; margin-top: 30px; }
+#container { display: flex; flex-direction: column; }
+
+.container-home {
+  --rs-ink: #1d1d1b;
+  --rs-rope: #e9dfcc;
+  --rs-rope-dark: #cdbf9f;
+  --rs-paper: #faf7f0;
+  --rs-rust: #c8431a;
+  --rs-rust-dark: #a53514;
+  --rs-muted: #6a655a;
+  --rs-line: #d9d2c0;
+  max-width: 1200px; margin: 0 auto; padding: 0 15px; background: #fff; color: var(--rs-ink);
+}
+.container-home a { text-decoration: none; color: inherit; }
+.container-home a:focus-visible { outline: 3px solid var(--rs-rust); outline-offset: 3px; }
+
+/* Hero (content_top) - hack mantido */
+.carousel-wrapper { transform: translateY(200px); margin-bottom: 200px; }
+.carousel { position: static !important; border-radius: 2px; overflow: hidden; }
+.carousel-inner { border-radius: 2px; overflow: hidden; }
+.carousel img { border-radius: 2px; max-height: 380px; object-fit: cover; display: block; }
+
+/* Divisor de corda torcida */
+.rope-divider { height: 10px; margin: 40px 0; border-radius: 5px;
+  background: repeating-linear-gradient(-45deg, var(--rs-rope-dark) 0 6px, var(--rs-rope) 6px 12px); }
+
+/* Benefícios */
+.diferenciais-row { display: grid; grid-template-columns: repeat(4, 1fr); margin: 30px 0 0; background: var(--rs-paper); border: 1px solid var(--rs-line); }
+.diferencial { display: flex; align-items: center; gap: 14px; padding: 20px; border-right: 1px solid var(--rs-line); }
+.diferencial:last-child { border-right: 0; }
+.diferencial .ico { flex: 0 0 44px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
+.diferencial .ico img { width: 38px; height: 38px; object-fit: contain; }
+.diferencial .txt { display: flex; flex-direction: column; line-height: 1.25; }
+.diferencial span { font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; }
+.diferencial small { font-size: 12px; color: var(--rs-muted); }
+
+/* Cabeçalho de secção */
+.section-head { margin: 0 0 24px; }
+.section-head .kicker { display: block; font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--rs-rust); margin-bottom: 6px; }
+.section-head h2, .section-head h3 { margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -.3px; }
+.section-head p { margin: 8px 0 0; color: var(--rs-muted); font-size: 15px; max-width: 640px; }
+.section-head.row { display: flex; align-items: flex-end; justify-content: space-between; gap: 15px; }
+.section-head .more { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--rs-rust); border-bottom: 2px solid var(--rs-rust); white-space: nowrap; }
+
+/* Categorias numeradas */
+.categories-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--rs-ink); border-left: 1px solid var(--rs-line); counter-reset: cat; }
+.category-link { display: block; border-right: 1px solid var(--rs-line); border-bottom: 1px solid var(--rs-line); counter-increment: cat; background: #fff; transition: background .2s; }
+.category-link:hover { background: var(--rs-paper); }
+.category-item { display: flex; flex-direction: column; padding: 16px; }
+.category-card { aspect-ratio: 1 / 1; background: var(--rs-paper); overflow: hidden; }
+.category-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.category-item span { margin-top: 14px; font-size: 15px; font-weight: 800; display: flex; align-items: baseline; gap: 10px; }
+.category-item span::before { content: counter(cat, decimal-leading-zero); font-size: 12px; font-weight: 800; color: var(--rs-rust); letter-spacing: 1px; }
+.category-link:hover .category-item span { color: var(--rs-rust); }
+
+/* Botões */
+.rs-btn { display: inline-block; padding: 13px 26px; border: 2px solid transparent; border-radius: 2px; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
+.rs-btn-rust { background: var(--rs-rust); color: #fff !important; }
+.rs-btn-rust:hover { background: var(--rs-rust-dark); }
+.rs-btn-line { background: transparent; color: #fff !important; border-color: #fff; }
+.rs-btn-line:hover { background: #fff; color: var(--rs-ink) !important; }
+
+/* Banner promocional */
+.banner-promo { display: flex; align-items: center; justify-content: space-between; gap: 30px; padding: 44px 48px; background: var(--rs-ink); color: #fff; border-radius: 2px; position: relative; overflow: hidden; }
+.banner-promo::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 8px;
+  background: repeating-linear-gradient(-45deg, var(--rs-rust) 0 6px, #e8643a 6px 12px); }
+.promo-tag { display: inline-block; font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #f0a98e; margin-bottom: 12px; }
+.promo-content { flex: 1; }
+.promo-content h2 { font-size: 32px; font-weight: 800; margin: 0 0 12px; color: #fff; letter-spacing: -.3px; }
+.promo-content p { font-size: 16px; margin: 0 0 24px; color: #cfc9b8; }
+.promo-buttons { display: flex; gap: 14px; flex-wrap: wrap; }
+.banner-promo img { max-width: 220px; width: 100%; height: auto; background: var(--rs-rope); padding: 16px; border-radius: 2px; }
+
+/* Guia de escolha */
+.guide-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.guide-card { display: flex; flex-direction: column; padding: 22px; background: var(--rs-paper); border: 1px solid var(--rs-line); border-top: 4px solid var(--rs-rust); transition: border-color .2s, background .2s; }
+.guide-card:hover { background: #fff; border-color: var(--rs-ink); border-top-color: var(--rs-rust); }
+.guide-card h4 { margin: 0 0 8px; font-size: 18px; font-weight: 800; }
+.guide-card p { margin: 0 0 16px; font-size: 14px; line-height: 1.55; color: var(--rs-muted); flex: 1; }
+.guide-card .tag { font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--rs-muted); margin-bottom: 10px; }
+.guide-card .go { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--rs-rust); }
+
+/* Aplicações */
+.applications-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.app-card-link { display: block; }
+.app-card { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--rs-paper); border-radius: 2px; }
+.app-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.app-card::before { content: ''; position: absolute; inset: 0; z-index: 2; background: linear-gradient(to top, rgba(29,29,27,.85), rgba(29,29,27,.05) 55%); transition: opacity .25s; }
+.app-card:hover::before { opacity: .85; }
+.app-card span { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; padding: 18px 18px 20px; color: #fff; font-size: 18px; font-weight: 800; border-left: 6px solid var(--rs-rust); margin: 0 0 18px 18px; padding: 2px 0 2px 12px; }
+
+/* Produtos em destaque */
+.featured-module-wrapper { padding: 6px 0 10px; }
+.featured-module-wrapper .product-layout { margin-bottom: 24px; }
+.featured-module-wrapper .product-thumb { height: 100%; background: #fff; border: 1px solid var(--rs-line); border-radius: 2px; padding: 14px; transition: border-color .2s; }
+.featured-module-wrapper .product-thumb:hover { border-color: var(--rs-ink); }
+.featured-module-wrapper .product-thumb .image { aspect-ratio: 1 / 1; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; background: #fff; overflow: hidden; }
+.featured-module-wrapper .product-thumb .image img { width: 100%; height: 100%; object-fit: contain; }
+.featured-module-wrapper .product-thumb h4 { font-size: 15px; font-weight: 700; line-height: 1.35; }
+.featured-module-wrapper .product-thumb h4 a { color: var(--rs-ink); }
+.featured-module-wrapper .product-thumb .price { font-size: 20px; font-weight: 800; margin: 8px 0; }
+.featured-module-wrapper .product-thumb .price-old { color: var(--rs-muted); font-weight: 400; font-size: 14px; text-decoration: line-through; margin-right: 6px; }
+.featured-module-wrapper .product-thumb .price-new { color: var(--rs-rust); }
+.featured-module-wrapper .product-thumb .button-group button { border-radius: 2px; }
+.featured-module-wrapper .product-thumb .button-group button:first-child { background: var(--rs-rust); border-color: var(--rs-rust); color: #fff; }
+.featured-module-wrapper .product-thumb .button-group button:first-child:hover { background: var(--rs-rust-dark); border-color: var(--rs-rust-dark); }
+
+/* Como encomendar */
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--rs-line); counter-reset: step; }
+.step { padding: 28px; border-right: 1px solid var(--rs-line); counter-increment: step; background: var(--rs-paper); }
+.step:last-child { border-right: 0; }
+.step::before { content: counter(step); display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; margin-bottom: 14px; background: var(--rs-ink); color: #fff; font-weight: 800; border-radius: 50%; }
+.step h4 { margin: 0 0 8px; font-size: 17px; font-weight: 800; }
+.step p { margin: 0; font-size: 14px; line-height: 1.55; color: var(--rs-muted); }
+
+/* Contacto */
+.contact-expert { display: flex; align-items: center; justify-content: space-between; gap: 40px; padding: 44px 48px; background: var(--rs-rope); border-radius: 2px; border-left: 8px solid var(--rs-rust); }
+.contact-expert h3 { font-size: 26px; font-weight: 800; margin: 0 0 12px; }
+.contact-expert p { font-size: 15px; line-height: 1.6; margin: 0 0 22px; color: #4b463b; }
+.contact-expert img { max-width: 120px; width: 100%; height: auto; }
+
+/* Responsivo */
+@media (max-width: 992px) {
+  .diferenciais-row { grid-template-columns: repeat(2, 1fr); }
+  .diferencial:nth-child(2) { border-right: 0; }
+  .diferencial:nth-child(-n+2) { border-bottom: 1px solid var(--rs-line); }
+  .categories-row, .guide-grid, .applications-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .carousel-wrapper { position: relative !important; top: auto !important; left: auto !important; right: auto !important; margin-top: 110px; margin-bottom: 220px; z-index: 1 !important; }
+  .banner-promo, .contact-expert { flex-direction: column; text-align: center; padding: 30px 22px 36px; }
+  .promo-buttons { justify-content: center; }
+  .banner-promo img { max-width: 150px; }
+  .steps { grid-template-columns: 1fr; }
+  .step { border-right: 0; border-bottom: 1px solid var(--rs-line); }
+  .step:last-child { border-bottom: 0; }
+}
+@media (max-width: 520px) {
+  .diferenciais-row { grid-template-columns: 1fr; }
+  .diferencial { border-right: 0; border-bottom: 1px solid var(--rs-line); }
+  .diferencial:last-child { border-bottom: 0; }
+  .category-item { padding: 10px; }
+  .category-item span { font-size: 13px; }
+  .guide-grid { grid-template-columns: 1fr; }
+  .applications-grid { gap: 10px; }
+  .app-card span { font-size: 15px; }
+  .section-head h2, .section-head h3 { font-size: 22px; }
+  .promo-content h2 { font-size: 24px; }
+}
+</style>
+
+<div class="container-home">
+
+  <!-- Banner do módulo OpenCart (content_top) -->
+  <div class="carousel-wrapper">
+    {{ content_top }}
+  </div>
+
+  <!-- Benefícios -->
+  <div class="diferenciais-row">
+    <div class="diferencial">
+      <div class="ico"><img src="image/catalog/icons/Wheelchair--Streamline-Core-Gradient.svg" alt="Envio 24h" width="38" height="38"></div>
+      <div class="txt"><span>Envio 24h</span><small>*aplica-se a 90% dos produtos</small></div>
+    </div>
+    <div class="diferencial">
+      <div class="ico"><img src="image/catalog/icons/User-Identifier-Card--Streamline-Core-Gradient.svg" alt="Serviço profissional" width="38" height="38"></div>
+      <div class="txt"><span>Serviço profissional</span><small>Experiência dos nossos especialistas</small></div>
+    </div>
+    <div class="diferencial">
+      <div class="ico"><img src="https://ropespider.com/image/catalog/Loja/RopeSpider-logo.png" alt="RopeSpider" width="38" height="38"></div>
+      <div class="txt"><span>Marca de confiança</span><small>RopeSpider</small></div>
+    </div>
+    <div class="diferencial">
+      <div class="ico"><img src="image/catalog/icons/Pacman--Streamline-Core-Gradient.svg" alt="Desde 12.5€" width="38" height="38"></div>
+      <div class="txt"><span>Desde 12.5€</span><small>Custo fixo de transportadora</small></div>
+    </div>
+  </div>
+
+  <div class="rope-divider"></div>
+
+  <!-- Categorias principais -->
+  <div class="section-head">
+    <span class="kicker">Catálogo</span>
+    <h2>Compre por categoria</h2>
+  </div>
+  <div class="categories-row">
+    <a href="/Cordas-de-aco/cabos-de-aco-galvanizado?route=product/category&language=pt-pt" class="category-link">
+      <div class="category-item">
+        <div class="category-card"><img src="image/catalog/Categorias/10_5_i_7283.png" alt="Cabos de aço" width="300" height="300"></div>
+        <span>Cabos de aço</span>
+      </div>
+    </a>
+    <a href="/Cordas-de-aco/Cabo-de-aco-inoxidavel?route=product/category&language=pt-pt" class="category-link">
+      <div class="category-item">
+        <div class="category-card"><img src="image/catalog/Categorias/10_5_i_7289.png" alt="Cabos inox" width="300" height="300"></div>
+        <span>Cabos inox</span>
+      </div>
+    </a>
+    <a href="/Cordas-de-aco/cabo-de-aco-revestido-PVC?route=product/category&language=pt-pt" class="category-link">
+      <div class="category-item">
+        <div class="category-card"><img src="image/catalog/Categorias/10_5_i_7288.png" alt="Cabo revestido PVC" width="300" height="300"></div>
+        <span>Cabo revestido PVC</span>
+      </div>
+    </a>
+    <a href="/cordas-polipropileno?route=product/category&language=pt-pt" class="category-link">
+      <div class="category-item">
+        <div class="category-card"><img src="image/catalog/Categorias/10_5_i_7286.png" alt="Cordas Polipropileno" width="300" height="300"></div>
+        <span>Cordas Polipropileno</span>
+      </div>
+    </a>
+    <a href="/cordas-de-juta?route=product/category&language=pt-pt" class="category-link">
+      <div class="category-item">
+        <div class="category-card"><img src="image/catalog/Categorias/10_5_i_7287.png" alt="Cordas de Juta" width="300" height="300"></div>
+        <span>Cordas de Juta</span>
+      </div>
+    </a>
+    <a href="/cordas-elasticas?route=product/category&language=pt-pt" class="category-link">
+      <div class="category-item">
+        <div class="category-card"><img src="image/catalog/Categorias/10_5_i_7285.png" alt="Cordas Elásticas" width="300" height="300"></div>
+        <span>Cordas Elásticas</span>
+      </div>
+    </a>
+    <a href="/correntes?route=product/category&language=pt-pt" class="category-link">
+      <div class="category-item">
+        <div class="category-card"><img src="image/catalog/Categorias/pol_il_Lancuch-Klasa-Klasy-10-ZAWIESIOWY-13mm-50m-552 (1).jpg" alt="Correntes" width="300" height="300"></div>
+        <span>Correntes</span>
+      </div>
+    </a>
+    <a href="/acessorios-construcao?route=product/category&language=pt-pt" class="category-link">
+      <div class="category-item">
+        <div class="category-card"><img src="image/catalog/Categorias/pol_il_HAK-ZAWIESIOWY-SWORZNIOWY-Z-ZABEZPIECZENIEM-13mm-415 (1).jpg" alt="Acessórios Industriais" width="300" height="300"></div>
+        <span>Acessórios Construção</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="rope-divider"></div>
+
+  <!-- Banner promocional -->
+  <div class="banner-promo">
+    <div class="promo-content">
+      <span class="promo-tag">Profissionais e empresas</span>
+      <h2>Desconto especial em Cabos Galvanizados</h2>
+      <p>Aproveite condições para empresas. Quantidades e descontos sob consulta.</p>
+      <div class="promo-buttons">
+        <a class="rs-btn rs-btn-rust" href="index.php?route=product/special">Ver promoções</a>
+        <a class="rs-btn rs-btn-line" href="https://ropespider.com/?route=information/contact&language=pt-pt">Solicitar orçamento</a>
+      </div>
+    </div>
+    <img src="https://ropespider.com/image/catalog/Loja/RopeSpider-logo.png" alt="Promoção" width="220" height="220" loading="lazy">
+  </div>
+
+  <div class="rope-divider"></div>
+
+  <!-- Guia de escolha por material -->
+  <div class="section-head">
+    <span class="kicker">Guia rápido</span>
+    <h2>Que material escolher?</h2>
+    <p>Cada obra pede um material diferente. Veja a orientação base e vá direto à categoria certa.</p>
+  </div>
+  <div class="guide-grid">
+    <a class="guide-card" href="/Cordas-de-aco/cabos-de-aco-galvanizado?route=product/category&language=pt-pt">
+      <span class="tag">Aço galvanizado</span>
+      <h4>Resistência para obra</h4>
+      <p>Para elevação, tensionamento e uso exterior em geral, com boa relação resistência/preço.</p>
+      <span class="go">Ver cabos de aço &rsaquo;</span>
+    </a>
+    <a class="guide-card" href="/Cordas-de-aco/Cabo-de-aco-inoxidavel?route=product/category&language=pt-pt">
+      <span class="tag">Inox</span>
+      <h4>Ambientes agressivos</h4>
+      <p>Indicado para zonas húmidas, marítimas ou onde a corrosão é um risco permanente.</p>
+      <span class="go">Ver cabos inox &rsaquo;</span>
+    </a>
+    <a class="guide-card" href="/Cordas-de-aco/cabo-de-aco-revestido-PVC?route=product/category&language=pt-pt">
+      <span class="tag">Revestido PVC</span>
+      <h4>Proteção e acabamento</h4>
+      <p>Cabo com camada de proteção, útil para vedações, estendais e zonas de contacto.</p>
+      <span class="go">Ver cabos PVC &rsaquo;</span>
+    </a>
+    <a class="guide-card" href="/cordas-polipropileno?route=product/category&language=pt-pt">
+      <span class="tag">Polipropileno</span>
+      <h4>Leve e versátil</h4>
+      <p>Corda leve para trabalhos gerais, fixação de cargas e utilização náutica.</p>
+      <span class="go">Ver cordas &rsaquo;</span>
+    </a>
+  </div>
+
+  <div class="rope-divider"></div>
+
+  <!-- Categorias por aplicação -->
+  <div class="section-head">
+    <span class="kicker">Aplicações</span>
+    <h2>Compre por aplicação</h2>
+  </div>
+  <div class="applications-grid">
+    <a href="/casa?route=product/category&language=pt-pt" class="app-card-link">
+      <div class="app-card">
+        <img src="image/catalog/Categorias/aplicacao-casa.jpg" alt="Casa" width="400" height="500" loading="lazy">
+        <span>Casa</span>
+      </div>
+    </a>
+    <a href="/jardim?route=product/category&language=pt-pt" class="app-card-link">
+      <div class="app-card">
+        <img src="image/catalog/Categorias/aplicacao-jardim.jpg" alt="Jardim" width="400" height="500" loading="lazy">
+        <span>Jardim</span>
+      </div>
+    </a>
+    <a href="/desporto?route=product/category&language=pt-pt" class="app-card-link">
+      <div class="app-card">
+        <img src="image/catalog/Categorias/aplicacao-desporto.jpg" alt="Desporto" width="400" height="500" loading="lazy">
+        <span>Desporto</span>
+      </div>
+    </a>
+    <a href="/equipamento-de-vela?route=product/category&language=pt-pt" class="app-card-link">
+      <div class="app-card">
+        <img src="image/catalog/Categorias/aplicacao-vela.jpg" alt="Equipamento de Vela" width="400" height="500" loading="lazy">
+        <span>Equipamento de Vela</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="rope-divider"></div>
+
+  <!-- Produtos em destaque -->
+  <section class="featured-products-section">
+    <div class="section-head row">
+      <div>
+        <span class="kicker">Seleção</span>
+        <h3>Produtos em Destaque</h3>
+      </div>
+      <a class="more" href="index.php?route=product/special&language=pt-pt">Ver promoções</a>
+    </div>
+    <div class="featured-module-wrapper">
+      {{ featured }}
+    </div>
+  </section>
+
+  <!-- Content bottom -->
+  {{ content_bottom }}
+
+  <div class="rope-divider"></div>
+
+  <!-- Como encomendar -->
+  <div class="section-head">
+    <span class="kicker">Simples e rápido</span>
+    <h2>Como encomendar</h2>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <h4>Escolha o produto</h4>
+      <p>Navegue por categoria, material ou aplicação e encontre a referência certa.</p>
+    </div>
+    <div class="step">
+      <h4>Peça orçamento ou encomende</h4>
+      <p>Para quantidades maiores ou condições de empresa, fale connosco. Para o resto, compre online.</p>
+    </div>
+    <div class="step">
+      <h4>Receba em casa ou em obra</h4>
+      <p>Envio em 24h* e custo fixo de transportadora desde 12.5€.</p>
+    </div>
+  </div>
+
+  <div class="rope-divider"></div>
+
+  <!-- Contacto especialista -->
+  <div class="contact-expert">
+    <div>
+      <h3>Pergunte aos nossos especialistas</h3>
+      <p>Precisa de esclarecimento imediato sobre aplicação ou material? Suporte técnico dedicado e resposta rápida.</p>
+      <a class="rs-btn rs-btn-rust" href="https://ropespider.com/?route=information/contact&language=pt-pt">Contactar agora</a>
+    </div>
+    <img src="image/catalog/icons/User-Multiple-Circle--Streamline-Core-Gradient.svg" alt="Especialista" width="120" height="120" loading="lazy">
+  </div>
+
+</div>
+
+{{ footer }}
